@@ -1,0 +1,23 @@
+---
+import * as heroContent from '../content/hero.md';
+---
+
+<section class="store_hero">
+  <div class="container-xl h-100">
+    <div class="row h-100">
+      <div class="col-lg-7 mt-5 pt-5">
+        <div class="mb-5">
+          <h1 class="display-2 text-white">
+            {heroContent.frontmatter.title}
+          </h1>
+          <p class="text-white fs-4">
+            {heroContent.frontmatter.description}
+          </p>
+        </div>
+        <div class="store_hero-cta">
+          <a href="/shop/" class="btn btn-primary btn-lg">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

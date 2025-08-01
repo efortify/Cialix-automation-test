@@ -1,0 +1,110 @@
+---
+import * as benefits from '../content/benefits.md';
+
+const firstItem = benefits.frontmatter.benefits.find((b: any) =>
+  b.id.includes('strength-stamina')
+);
+const secondItem = benefits.frontmatter.benefits.find((b: any) =>
+  b.id.includes('earth-grown-ingredients')
+);
+const thirdItem = benefits.frontmatter.benefits.find((b: any) =>
+  b.id.includes('increased-libido')
+);
+const fourthItem = benefits.frontmatter.benefits.find((b: any) =>
+  b.id.includes('benefits-5-star-supplement')
+);
+---
+
+<section class="store_section benefits-section bg-dark py-5">
+  <div class="container-xl py-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col text-center">
+        <h2 class="store_feature-header text-white display-5 mb-4">
+          {benefits.frontmatter.title}
+        </h2>
+        <p class="text-center">
+          {benefits.frontmatter.subtitle}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 pt-5">
+        <div class="store_section--item_inner">
+          <div class="p-2">
+            <div class="benefit">
+              <div class="benefit-img">
+                <img src={firstItem.image} alt={firstItem.title} />
+              </div>
+              <div class="benefit-header">
+                <h5>{firstItem.title}</h5>
+              </div>
+              <div class="benefit-text">
+                <p>
+                  {firstItem.description}
+                </p>
+              </div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit-img">
+                <img src={secondItem.image} alt={secondItem.title} />
+              </div>
+              <div class="benefit-header">
+                <h5>{secondItem.title}</h5>
+              </div>
+              <div class="benefit-text">
+                <p>
+                  {secondItem.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="store_section--item_inner">
+          <div class="p-2">
+            <img
+              src="/assets/images/product-bottle.png"
+              alt="Cialix"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 pt-5">
+        <div class="store_section--item_inner">
+          <div class="p-2">
+            <div class="benefit">
+              <div class="benefit-img">
+                <img src={thirdItem.image} alt={thirdItem.title} />
+              </div>
+              <div class="benefit-header">
+                <h5>{thirdItem.title}</h5>
+              </div>
+              <div class="benefit-text">
+                <p>
+                  {thirdItem.description}
+                </p>
+              </div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit-img">
+                <img src={fourthItem.image} alt={fourthItem.title} />
+              </div>
+              <div class="benefit-header">
+                <h5>{fourthItem.title}</h5>
+              </div>
+              <div class="benefit-text">
+                <p>
+                  {fourthItem.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

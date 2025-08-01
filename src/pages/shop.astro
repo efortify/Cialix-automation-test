@@ -1,0 +1,351 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import * as productList from '../content/product-list.md';
+
+const products = productList.frontmatter.products;
+
+// Get unique categories
+const categories = [...new Set(products.map((product: any) => product.category))] as string[];
+---
+
+<Layout
+  title="Shop - Cialix - Maximum Sexual Benefits! 100% Natural Male Enhancement"
+>
+  <Header />
+
+  <section class="bg-black text-white py-20 mt-16">
+    <div class="container-xl mx-auto px-4">
+      <div class="text-center max-w-4xl mx-auto">
+        <h1
+          class="text-5xl font-bold mb-6"
+          style="font-family: 'paralucent', sans-serif;"
+        >
+          Shop Cialix
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Discover our premium male enhancement products
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <!-- Category Filter -->
+        <div class="flex flex-wrap gap-2">
+          <button
+            class="category-filter bg-green-500 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+            data-category="all"
+          >
+            All Products
+          </button>
+          {categories.map((category) => (
+            <button
+              class="category-filter bg-gray-300 text-gray-700 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+              data-category={category}
+            >
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        <!-- Sort Options -->
+        <div class="relative inline-block text-gray-700">
+          <select
+            id="sort-by"
+            class="block appearance-none w-full bg-white border border-gray-300 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          >
+            <option value="default">Sort by</option>
+            <option value="name-asc">Alphabetically A-Z</option>
+            <option value="name-desc">Alphabetically Z-A</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="category">Category</option>
+          </select>
+        </div>
+      </div>
+
+      <div
+        id="product-list"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        {
+          products.map((product: any) => (
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card" data-category={product.category}>
+              <div class="relative">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  class="w-full h-64 object-contain"
+                />
+                {product.badge && (
+                  <div
+                    class={`absolute top-4 right-4 ${product.badgeColor} text-white px-3 py-1 rounded-full text-sm font-bold`}
+                  >
+                    {product.badge}
+                  </div>
+                )}
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">{product.name}</h3>
+                <p class="text-gray-600 mb-4">{product.description}</p>
+                
+                <!-- Price Range Display -->
+                <div class="mb-4">
+                  <div class="text-2xl font-bold text-green-600">
+                    ${product.plans[0].price}
+                  </div>
+                  {product.plans.length > 1 && (
+                    <div class="text-sm text-gray-500">
+                      Starting from ${Math.min(...product.plans.map((p: any) => p.price))}
+                    </div>
+                  )}
+                </div>
+
+                <!-- Plan Options Preview -->
+                <div class="mb-4">
+                  <div class="text-sm text-gray-600 mb-2">Available Plans:</div>
+                  <div class="flex flex-wrap gap-1">
+                    {product.plans.slice(0, 3).map((plan: any) => (
+                      <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                        {plan.frequency === 'One-Time' ? 'One-Time' : plan.frequency}
+                      </span>
+                    ))}
+                    {product.plans.length > 3 && (
+                      <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                        +{product.plans.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <a
+                    href={`/product/${product.id}`}
+                    class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                  >
+                    View Product
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- No Products Message -->
+      <div id="no-products" class="text-center py-12" style="display: none;">
+        <h3 class="text-xl font-semibold text-gray-600 mb-2">No products found</h3>
+        <p class="text-gray-500">Try adjusting your filters or browse all products.</p>
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ products: products, categories: categories }}>
+    // Products are now passed from the server-side Astro component
+
+    const productListContainer = document.getElementById('product-list');
+    const sortBySelect = document.getElementById('sort-by');
+    const categoryFilters = document.querySelectorAll('.category-filter');
+    const noProductsMessage = document.getElementById('no-products');
+
+    let currentCategory = 'all';
+    let currentSort = 'default';
+
+    function renderProducts(filteredAndSortedProducts) {
+      productListContainer.innerHTML = '';
+      
+      if (filteredAndSortedProducts.length === 0) {
+        noProductsMessage.style.display = 'block';
+        return;
+      }
+
+      noProductsMessage.style.display = 'none';
+      
+      filteredAndSortedProducts.forEach((product) => {
+        const productCard = `
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card" data-category="${product.category}">
+            <div class="relative">
+              <img
+                src="${product.image}"
+                alt="${product.name}"
+                class="w-full h-64 object-contain"
+              />
+              ${product.badge ? `<div class="absolute top-4 right-4 ${product.badgeColor} text-white px-3 py-1 rounded-full text-sm font-bold">${product.badge}</div>` : ''}
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">${product.name}</h3>
+              <p class="text-gray-600 mb-4">${product.description}</p>
+              
+              <div class="mb-4">
+                <div class="text-2xl font-bold text-green-600">
+                  $${product.plans[0].price}
+                </div>
+                ${product.plans.length > 1 ? `<div class="text-sm text-gray-500">Starting from $${Math.min(...product.plans.map(p => p.price))}</div>` : ''}
+              </div>
+
+              <div class="mb-4">
+                <div class="text-sm text-gray-600 mb-2">Available Plans:</div>
+                <div class="flex flex-wrap gap-1">
+                  ${product.plans.slice(0, 3).map(plan => 
+                    `<span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">${plan.frequency === 'One-Time' ? 'One-Time' : plan.frequency}</span>`
+                  ).join('')}
+                  ${product.plans.length > 3 ? `<span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">+${product.plans.length - 3} more</span>` : ''}
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <a
+                  href="/product/${product.id}"
+                  class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                >
+                  View Product
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+        productListContainer.innerHTML += productCard;
+      });
+    }
+
+    function filterAndSortProducts() {
+      let filteredProducts = [...products];
+
+      // Apply category filter
+      if (currentCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(product => product.category === currentCategory);
+      }
+
+      // Apply sorting
+      switch (currentSort) {
+        case 'name-asc':
+          filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'name-desc':
+          filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+        case 'price-asc':
+          filteredProducts.sort((a, b) => a.plans[0].price - b.plans[0].price);
+          break;
+        case 'price-desc':
+          filteredProducts.sort((a, b) => b.plans[0].price - a.plans[0].price);
+          break;
+        case 'category':
+          filteredProducts.sort((a, b) => a.category.localeCompare(b.category));
+          break;
+      }
+
+      renderProducts(filteredProducts);
+    }
+
+    // Category filter event listeners
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('click', (event) => {
+        // Update active filter button
+        categoryFilters.forEach(btn => {
+          btn.classList.remove('bg-green-500', 'text-white');
+          btn.classList.add('bg-gray-300', 'text-gray-700');
+        });
+        event.target.classList.remove('bg-gray-300', 'text-gray-700');
+        event.target.classList.add('bg-green-500', 'text-white');
+
+        currentCategory = event.target.dataset.category;
+        filterAndSortProducts();
+      });
+    });
+
+    // Sort event listener
+    sortBySelect.addEventListener('change', (event) => {
+      currentSort = event.target.value;
+      filterAndSortProducts();
+    });
+
+    // Initial render
+    filterAndSortProducts();
+  </script>
+
+  <!-- Product Benefits Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Why Choose Cialix?</h2>
+        <p class="text-xl text-gray-600">
+          Discover the benefits that make Cialix the leading choice
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div
+            class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <img
+              src="/assets/icons/strength-icon.png"
+              alt="Strength"
+              class="w-8 h-8"
+            />
+          </div>
+          <h3 class="text-xl font-bold mb-2">Enhanced Performance</h3>
+          <p class="text-gray-600">
+            Experience improved stamina and performance with our natural formula
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div
+            class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <img
+              src="/assets/icons/feather-icon.png"
+              alt="Natural"
+              class="w-8 h-8"
+            />
+          </div>
+          <h3 class="text-xl font-bold mb-2">100% Natural</h3>
+          <p class="text-gray-600">
+            Made with premium natural ingredients, safe and effective
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div
+            class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <img
+              src="/assets/icons/flame-icon.png"
+              alt="Energy"
+              class="w-8 h-8"
+            />
+          </div>
+          <h3 class="text-xl font-bold mb-2">Increased Energy</h3>
+          <p class="text-gray-600">
+            Boost your energy levels and overall vitality
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-green-500 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-4xl font-bold mb-4">Ready to Transform Your Life?</h2>
+      <p class="text-xl mb-8">
+        Join thousands of satisfied customers who have experienced the Cialix
+        difference
+      </p>
+      <button
+        class="bg-white text-green-500 hover:bg-gray-100 px-8 py-3 rounded-lg font-bold text-lg transition-colors"
+      >
+        Shop Now
+      </button>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

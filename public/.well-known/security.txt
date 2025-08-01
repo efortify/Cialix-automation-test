@@ -1,0 +1,11 @@
+# Security Policy for Private Website
+# This website is private and should not be crawled, indexed, or accessed by automated tools
+
+Contact: mailto:security@example.com
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://example.com/.well-known/security.txt
+Policy: https://example.com/security-policy
+
+# This website is intentionally private and not meant for public access
+# Please do not attempt to crawl, index, or archive this content 

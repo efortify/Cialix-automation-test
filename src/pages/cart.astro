@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Header />
+  <section class="cart_section bg-white py-5">
+    <div class="container-xl py-5 mb-5">
+      <div class="row justify-content-center">
+        <div class="col text-center">
+          <h2 class="text-white display-5 mb-4">Shopping Cart</h2>
+        </div>
+      </div>
+      <div
+        id="cart-items"
+        class="row row-cols-1 row-cols-md-3 g-4 justify-content-center"
+      >
+      </div>
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+          <div class="card bg-light p-4">
+            <h3 class="mb-4">Order Summary</h3>
+            <div id="cart-summary"></div>
+            <hr class="my-4" />
+            <div class="d-flex justify-content-between fs-4 fw-bold">
+              <span>Total</span>
+              <span id="cart-total">$0.00</span>
+            </div>
+            <div class="d-flex justify-content-end mt-4">
+              <button id="clear-cart" class="btn btn-danger me-2"
+                >Clear Cart</button
+              >
+              <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <Footer />
+  <script is:inline src="/assets/js/cart.js"></script>
+</Layout>

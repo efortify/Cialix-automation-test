@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+import * as termsAndConditions from '../content/terms-and-conditions.md';
+---
+
+---
+
+<Layout
+  title="Terms and Conditions | Cialix"
+  description="Terms and Conditions for using Cialix website and products. Understand your rights and responsibilities."
+>
+  <Header />
+
+  <section class="bg-black text-white py-20 mt-16">
+    <div class="container-xl mx-auto px-4">
+      <div class="text-center max-w-4xl mx-auto">
+        <h1
+          class="text-5xl font-bold mb-6"
+          style="font-family: 'paralucent', sans-serif;"
+        >
+          Terms and Conditions
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gray-50">
+    <div class="container-xl mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-center">{termsAndConditions.frontmatter.title}</h1>
+        <h2 class="text-center">TERMS &amp; CONDITIONS of USE</h2>
+        <p class="text-center text-sm text-gray-500">
+          LAST UPDATED: {termsAndConditions.frontmatter.last_updated}
+        </p>
+
+        <termsAndConditions.default />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,144 @@
+---
+// Header component for Cialix website
+---
+
+<header class="bg-black text-white py-4 fixed w-full top-0 z-50">
+  <div class="container-xl">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <img src="/assets/images/logo-white.png" alt="Cialix" class="h-8" />
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a
+          href="/"
+          class="text-white hover:text-orange-400 font-medium"
+          style="transition: none !important;">Home</a
+        >
+        <a
+          href="/shop"
+          class="text-white hover:text-orange-400 font-medium"
+          style="transition: none !important;">Shop</a
+        >
+        <a
+          href="/faq"
+          class="text-white hover:text-orange-400 font-medium"
+          style="transition: none !important;">FAQ</a
+        >
+        <a
+          href="/support"
+          class="text-white hover:text-orange-400 font-medium"
+          style="transition: none !important;">Support</a
+        >
+      </nav>
+
+      <!-- Right side - Cart Icon -->
+      <div class="flex items-center">
+        <a
+          href="/cart"
+          class="text-white hover:text-orange-400 transition-colors p-2 cart-icon-container"
+          id="cart-icon-link"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"
+            ></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button class="md:hidden text-white" id="mobile-menu-btn">
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden mt-4" id="mobile-menu">
+      <nav class="flex flex-col space-y-4">
+        <a href="/" class="text-white hover:text-orange-400 transition-colors"
+          >Home</a
+        >
+        <a
+          href="/shop"
+          class="text-white hover:text-orange-400 transition-colors">Shop</a
+        >
+        <a
+          href="/faq"
+          class="text-white hover:text-orange-400 transition-colors">FAQ</a
+        >
+        <a
+          href="/support"
+          class="text-white hover:text-orange-400 transition-colors">Support</a
+        >
+        <a
+          href="/cart"
+          class="text-white hover:text-orange-400 transition-colors">Cart</a
+        >
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Mobile menu toggle - only initialize once
+  document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+      // Remove existing event listeners to prevent duplicates
+      mobileMenuBtn.removeEventListener('click', toggleMobileMenu);
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+  });
+
+  function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+      mobileMenu.classList.toggle('hidden');
+    }
+  }
+
+  function updateCartQuantity() {
+    const cartQuantitySpan = document.getElementById('cart-quantity');
+    if (cartQuantitySpan) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalQuantity = cart.reduce(
+        (sum, item) => sum + parseInt(item.quantity),
+        0
+      );
+      cartQuantitySpan.textContent = totalQuantity.toString();
+      if (totalQuantity > 0) {
+        cartQuantitySpan.classList.remove('hidden');
+      } else {
+        cartQuantitySpan.classList.add('hidden');
+      }
+    }
+  }
+
+  updateCartQuantity();
+
+  window.addEventListener('cartUpdated', updateCartQuantity);
+</script>

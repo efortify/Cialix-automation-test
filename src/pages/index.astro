@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import FeaturedProducts from '../components/FeaturedProducts.astro';
+import About from '../components/About.astro';
+import Benefits from '../components/Benefits.astro';
+import LogoSection from '../components/LogoSection.astro';
+import IncreaseSection from '../components/IncreaseSection.astro';
+import Footer from '../components/Footer.astro';
+import ExclusiveOfferModal from '../components/ExclusiveOfferModal.jsx';
+---
+
+<Layout>
+  <Header />
+  <Navigation />
+  <Hero />
+  <FeaturedProducts />
+  <About />
+  <Benefits />
+  <LogoSection />
+  <IncreaseSection />
+  <Footer />
+  <ExclusiveOfferModal client:load />
+</Layout>

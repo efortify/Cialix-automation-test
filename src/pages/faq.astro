@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import * as faq from '../content/faq.md';
+
+const faqs = faq.frontmatter.faqs;
+
+const groupedFaqs = faqs.reduce((acc: any, faq: any) => {
+  const category = faq.category;
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(faq);
+  return acc;
+}, {});
+---
+
+<Layout
+  title="FAQ - Frequently Asked Questions | Cialix"
+  description="Find answers to common questions about Cialix male enhancement supplement. Learn about ingredients, usage, safety, and more."
+>
+  <Header />
+
+  <section class="bg-black text-white py-20 mt-16">
+    <div class="container-xl mx-auto px-4">
+      <div class="text-center max-w-4xl mx-auto">
+        <h1
+          class="text-5xl font-bold mb-6"
+          style="font-family: 'paralucent', sans-serif;"
+        >
+          {faq.frontmatter.header.title}
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          {faq.frontmatter.header.subtitle}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Content -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-xl mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        {
+          Object.entries(groupedFaqs as any).map(
+            ([category, faqsInCategory]) => (
+              <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">
+                  {category}
+                </h2>
+
+                <div class="space-y-6">
+                  {(faqsInCategory as any).map((faq: any) => (
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                      <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                        {faq.question}
+                      </h3>
+                      <p class="text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          )
+        }
+
+        <!-- Contact CTA -->
+        <div
+          class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-8 text-center text-white"
+        >
+          <h3 class="text-2xl font-bold mb-4">
+            {faq.frontmatter.contact_cta.title}
+          </h3>
+          <p class="text-lg mb-6">
+            {faq.frontmatter.contact_cta.subtitle}
+          </p>
+          <a
+            href={faq.frontmatter.contact_cta.cta_link}
+            class="inline-flex items-center bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            {faq.frontmatter.contact_cta.cta_text}
+            <svg
+              class="w-5 h-5 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

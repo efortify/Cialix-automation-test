@@ -1,0 +1,569 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Checkout - Cialix">
+  <Header />
+
+  <!-- Shop Hero Section -->
+  <section class="bg-black text-white py-20 mt-16">
+    <div class="container-xl mx-auto px-4">
+      <div class="text-center">
+        <h1 class="text-5xl font-bold mb-6">Checkout</h1>
+        <p class="text-xl">
+          Please, complete your purchase by filling out the form below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="checkout_section bg-white">
+    <div class="container-xl py-5 pt-5 mb-5">
+      <div class="row">
+        <!-- Main Content Area (Contact, Shipping) -->
+        <div class="col-lg-7">
+          <form id="checkout-form">
+            <h2 class="mb-4">Contact Information</h2>
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <h2 class="mt-5 mb-4">Shipping Address</h2>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First name"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="address1"
+                name="address1"
+                placeholder="Address"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="address2"
+                name="address2"
+                placeholder="Apartment, suite, etc. (optional)"
+              />
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  name="city"
+                  placeholder="City"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <select class="form-select" id="state" name="state" required>
+                  <option value="">State</option>
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AZ">Arizona</option>
+                  <option value="AR">Arkansas</option>
+                  <option value="CA">California</option>
+                  <option value="CO">Colorado</option>
+                  <option value="CT">Connecticut</option>
+                  <option value="DE">Delaware</option>
+                  <option value="FL">Florida</option>
+                  <option value="GA">Georgia</option>
+                  <option value="HI">Hawaii</option>
+                  <option value="ID">Idaho</option>
+                  <option value="IL">Illinois</option>
+                  <option value="IN">Indiana</option>
+                  <option value="IA">Iowa</option>
+                  <option value="KS">Kansas</option>
+                  <option value="KY">Kentucky</option>
+                  <option value="LA">Louisiana</option>
+                  <option value="ME">Maine</option>
+                  <option value="MD">Maryland</option>
+                  <option value="MA">Massachusetts</option>
+                  <option value="MI">Michigan</option>
+                  <option value="MN">Minnesota</option>
+                  <option value="MS">Mississippi</option>
+                  <option value="MO">Missouri</option>
+                  <option value="MT">Montana</option>
+                  <option value="NE">Nebraska</option>
+                  <option value="NV">Nevada</option>
+                  <option value="NH">New Hampshire</option>
+                  <option value="NJ">New Jersey</option>
+                  <option value="NM">New Mexico</option>
+                  <option value="NY">New York</option>
+                  <option value="NC">North Carolina</option>
+                  <option value="ND">North Dakota</option>
+                  <option value="OH">Ohio</option>
+                  <option value="OK">Oklahoma</option>
+                  <option value="OR">Oregon</option>
+                  <option value="PA">Pennsylvania</option>
+                  <option value="RI">Rhode Island</option>
+                  <option value="SC">South Carolina</option>
+                  <option value="SD">South Dakota</option>
+                  <option value="TN">Tennessee</option>
+                  <option value="TX">Texas</option>
+                  <option value="UT">Utah</option>
+                  <option value="VT">Vermont</option>
+                  <option value="VA">Virginia</option>
+                  <option value="WA">Washington</option>
+                  <option value="WV">West Virginia</option>
+                  <option value="WI">Wisconsin</option>
+                  <option value="WY">Wyoming</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="zip"
+                  name="zip"
+                  placeholder="Postal code"
+                  required
+                />
+              </div>
+            </div>
+
+            <h2 class="mt-5 mb-4">Payment Method</h2>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="cardNumber"
+                name="cardNumber"
+                placeholder="Card number"
+                maxlength="19"
+                required
+              />
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cardName"
+                  name="cardName"
+                  placeholder="Name on card"
+                  required
+                />
+              </div>
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cardExpMonth"
+                  name="cardExpMonth"
+                  placeholder="MM"
+                  maxlength="2"
+                  required
+                />
+              </div>
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cardExpYear"
+                  name="cardExpYear"
+                  placeholder="YY"
+                  maxlength="2"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cardCvv"
+                  name="cardCvv"
+                  placeholder="CVV"
+                  maxlength="4"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Loading and Error Messages -->
+            <div
+              id="loading-message"
+              class="alert alert-info"
+              style="display: none;"
+            >
+              Processing your order...
+            </div>
+            <div
+              id="error-message"
+              class="alert alert-danger"
+              style="display: none;"
+            >
+            </div>
+            <div
+              id="success-message"
+              class="alert alert-success"
+              style="display: none;"
+            >
+            </div>
+
+            <button
+              type="submit"
+              id="pay-now-button"
+              class="btn btn-primary btn-lg mt-4"
+              disabled
+            >
+              Pay Now
+            </button>
+          </form>
+        </div>
+
+        <!-- Order Summary Area -->
+        <div class="col-lg-5">
+          <div class="card bg-light p-4">
+            <h3 class="mb-4">Order Summary</h3>
+            <div id="checkout-cart-items"></div>
+            <hr class="my-4" />
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">$0.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Shipping</span>
+              <span id="checkout-shipping">Free</span>
+            </div>
+            <hr class="my-4" />
+            <div class="d-flex justify-content-between fs-4 fw-bold">
+              <span>Total</span>
+              <span id="checkout-total">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cartItemsContainer = document.getElementById('checkout-cart-items');
+      const subtotalSpan = document.getElementById('checkout-subtotal');
+      const totalSpan = document.getElementById('checkout-total');
+      const payButton = document.getElementById('pay-now-button');
+      const checkoutForm = document.getElementById('checkout-form');
+      const loadingMessage = document.getElementById('loading-message');
+      const errorMessage = document.getElementById('error-message');
+      const successMessage = document.getElementById('success-message');
+
+      const getCardType = (cardNumber) => {
+        const cardNumberString = cardNumber.toString().replace(/s/g, '');
+
+        // Visa: Starts with 4
+        if (/^4/.test(cardNumberString)) return 'visa';
+
+        // Mastercard: Starts with 51-55 or 2221-2720
+        if (
+          /^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)/.test(
+            cardNumberString
+          )
+        )
+          return 'master';
+
+        // American Express: Starts with 34 or 37
+        if (/^3[47]/.test(cardNumberString)) return 'amex';
+
+        // Discover: Starts with 6011, 622126-622925, 644-649, 65
+        if (
+          /^(6011|622(12[6-9]|1[3-9]|[2-8]|9[0-1][0-9]|92[0-5])|64[4-9]|65)/.test(
+            cardNumberString
+          )
+        )
+          return 'discover';
+
+        // ELO: Starts with 636368, 438935, 504175, 451416, 509048, 509067, 509049, 509069, 509050, 509074, 509068, 509040, 509045, 509051, 509046, 509066, 509047, 509042, 509052, 509043, 509064, 509040
+        if (
+          /^(636368|438935|504175|451416|509(0(4[0-9]|5[0-4])|06[6-9]|07[0-4]))/.test(
+            cardNumberString
+          )
+        )
+          return 'cielo_elo';
+
+        // Hipercard: Starts with 606282
+        if (/^(606282)/.test(cardNumberString)) return 'hipercard';
+
+        // Test Card:
+        if (cardNumberString === '1444444444444440') return 'Visa';
+
+        return 'Unknown';
+      };
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      let subtotal = 0;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        return;
+      }
+
+      // Render cart items
+      cart.forEach((item) => {
+        console.log('item', item);
+        const itemPrice = parseFloat(item.price.replace('$', ''));
+        const itemQuantity = parseInt(item.quantity);
+        const itemTotal = itemPrice * itemQuantity;
+        subtotal += itemTotal;
+
+        const cartItem = document.createElement('div');
+        cartItem.classList.add(
+          'd-flex',
+          'justify-content-between',
+          'align-items-center',
+          'mb-3'
+        );
+
+        // Create plan display text
+        let planDisplay = '';
+        if (item.selectedPlan) {
+          if (item.selectedPlan.frequency === 'One-Time') {
+            planDisplay =
+              '<br><small class="text-muted">One-Time Purchase</small>';
+          } else {
+            planDisplay = `<br><small class="text-success">✓ ${item.selectedPlan.frequency} Subscription</small>`;
+            if (item.selectedPlan.discount_percentage > 0) {
+              planDisplay += `<br><small class="text-success">Save ${item.selectedPlan.discount_percentage}%</small>`;
+            }
+          }
+        } else if (item.isSubscription) {
+          planDisplay =
+            '<br><small class="text-success">✓ Subscription</small>';
+        }
+
+        cartItem.innerHTML = `
+          <div class="d-flex align-items-center">
+            <img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; margin-right: 15px; border-radius: 5px;">
+            <div>
+              <h6 class="mb-0">${item.name}</h6>
+              <small class="text-muted">Quantity: ${item.quantity}</small>
+              ${planDisplay}
+            </div>
+          </div>
+          <span>$${itemTotal.toFixed(2)}</span>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+      });
+
+      subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+      totalSpan.textContent = `$${subtotal.toFixed(2)}`;
+
+      // Enable pay button if cart has items
+      if (cart.length > 0) {
+        payButton.disabled = false;
+      }
+
+      // Form validation
+      function validateForm() {
+        const requiredFields = [
+          'email',
+          'firstName',
+          'lastName',
+          'address1',
+          'city',
+          'state',
+          'zip',
+          'cardNumber',
+          'cardName',
+          'cardExpMonth',
+          'cardExpYear',
+          'cardCvv',
+        ];
+        let isValid = true;
+
+        requiredFields.forEach((fieldId) => {
+          const field = document.getElementById(fieldId);
+          if (!field.value.trim()) {
+            field.classList.add('is-invalid');
+            isValid = false;
+          } else {
+            field.classList.remove('is-invalid');
+          }
+        });
+
+        // Validate email format
+        const email = document.getElementById('email').value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          document.getElementById('email').classList.add('is-invalid');
+          isValid = false;
+        }
+
+        // Validate card number (basic Luhn algorithm)
+        const cardNumber = document
+          .getElementById('cardNumber')
+          .value.replace(/\s/g, '');
+        if (cardNumber.length < 13 || cardNumber.length > 19) {
+          document.getElementById('cardNumber').classList.add('is-invalid');
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      // Handle form submission
+      checkoutForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+          showError('Please fill in all required fields correctly.');
+          return;
+        }
+
+        // Show loading state
+        showLoading();
+        payButton.disabled = true;
+
+        try {
+          // Prepare customer data
+          const cardNumber = document
+            .getElementById('cardNumber')
+            .value.replace(/\s/g, '');
+          const customer = {
+            email: document.getElementById('email').value,
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            address1: document.getElementById('address1').value,
+            address2: document.getElementById('address2').value,
+            city: document.getElementById('city').value,
+            state: document.getElementById('state').value,
+            zip: document.getElementById('zip').value,
+            country: 'US',
+            cardNumber,
+            cardExpMonth: document.getElementById('cardExpMonth').value,
+            cardExpYear: document.getElementById('cardExpYear').value,
+            cardCvv: document.getElementById('cardCvv').value,
+            cardBrand: getCardType(cardNumber),
+          };
+
+          // Check if any items are subscriptions
+          const hasSubscription = cart.some((item) => item.isSubscription);
+
+          // Create order
+          const response = await fetch('/api/create-order', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              customer,
+              cart,
+              subscription: hasSubscription,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            showSuccess(
+              `Order created successfully! Order ID: ${result.order_id}`
+            );
+
+            // Clear cart and redirect to thank you page
+            setTimeout(() => {
+              window.location.href = '/thankyou';
+            }, 2000);
+          } else {
+            showError(result.error || 'Failed to create order');
+          }
+        } catch (error) {
+          console.error('Checkout error:', error);
+          showError(
+            'An error occurred while processing your order. Please try again.'
+          );
+        } finally {
+          hideLoading();
+          payButton.disabled = false;
+        }
+      });
+
+      // Helper functions
+      function showLoading() {
+        loadingMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+      }
+
+      function hideLoading() {
+        loadingMessage.style.display = 'none';
+      }
+
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+      }
+
+      function showSuccess(message) {
+        successMessage.textContent = message;
+        successMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+      }
+
+      // Card number formatting
+      document.getElementById('cardNumber').addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\s/g, '');
+        value = value.replace(/\D/g, '');
+        value = value.replace(/(\d{4})/g, '$1 ').trim();
+        e.target.value = value;
+      });
+
+      // Expiration date formatting
+      document.getElementById('cardExpMonth').addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value > 12) value = 12;
+        e.target.value = value;
+      });
+
+      document.getElementById('cardExpYear').addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        e.target.value = value;
+      });
+
+      document.getElementById('cardCvv').addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        e.target.value = value;
+      });
+    });
+  </script>
+</Layout>

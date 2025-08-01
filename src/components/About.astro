@@ -1,0 +1,22 @@
+---
+import * as aboutContent from '../content/about.md';
+---
+
+<section class="store_feature is-feature-1">
+  <div class="container-xl py-5">
+    <div class="row justify-content-lg-end py-5">
+      <div class="col-lg-7 py-5">
+        <img src={aboutContent.frontmatter.image} alt="" />
+        <h2 class="store_feature-title display-2">
+          {aboutContent.frontmatter.title}
+        </h2>
+        <div class="store_feature-subtitle fs-4 mb-5">
+          {aboutContent.frontmatter.subtitle}
+        </div>
+        <div class="store_feature-cta">
+          <a href="/shop/" class="btn btn-primary btn-lg">SHOP NOW →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

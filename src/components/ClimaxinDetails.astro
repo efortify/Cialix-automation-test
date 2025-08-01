@@ -1,0 +1,82 @@
+---
+import * as climaxinDetails from '../content/climaxin-details.md';
+
+const {
+  title,
+  subtitle,
+  benefits,
+  ingredients_title,
+  key_ingredients,
+  how_it_works,
+  cta,
+} = climaxinDetails.frontmatter;
+---
+
+<section class="bg-gray-50 py-16">
+  <div class="container mx-auto px-4">
+    <!-- Climaxin Benefits Section -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold mb-4">{title}</h2>
+      <p class="text-xl text-gray-600">{subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {
+        benefits.map((benefit: any) => (
+          <div class="text-center">
+            <div
+              class={`bg-${benefit.color}-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}
+            >
+              <img
+                src={`/assets/icons/${benefit.icon}`}
+                alt={benefit.title}
+                class="w-8 h-8"
+              />
+            </div>
+            <h3 class="text-xl font-bold mb-2">{benefit.title}</h3>
+            <p class="text-gray-600">{benefit.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Cialix Ingredients Section -->
+    <div class="bg-white text-black rounded-lg p-8 mb-16">
+      <h3 class="text-3xl font-bold text-center mb-8">{ingredients_title}</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h4 class="text-xl font-semibold mb-4">Ingredients</h4>
+          <img
+            src="/assets/images/CLIMAXIN_INGREDIENTS.png"
+            alt="Cialix Ingredients"
+          />
+        </div>
+        <div>
+          <h4 class="text-xl font-semibold mb-4">{how_it_works.title}</h4>
+          <p class="text-black mb-4">{how_it_works.description}</p>
+          <p class="text-black">{how_it_works.additional_info}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supplement Facts Section -->
+    <div class="bg-white rounded-lg p-8 mb-16 flex justify-center">
+      <img
+        src="/assets/images/CLIMAXIN_SUPPLEMENT_FACTS.png"
+        alt="Cialix Supplement Facts"
+      />
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center">
+      <h3 class="text-3xl font-bold mb-4">{cta.title}</h3>
+      <p class="text-xl text-gray-600 mb-8">{cta.subtitle}</p>
+      <a
+        href="#add-to-cart"
+        class={`bg-${cta.button_color}-500 hover:bg-${cta.button_color}-600 text-white px-8 py-3 rounded-lg font-bold text-lg transition-colors`}
+      >
+        {cta.button_text}
+      </a>
+    </div>
+  </div>
+</section>

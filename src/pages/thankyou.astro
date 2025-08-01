@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Thank You for Your Order!">
+  <Header />
+
+  <section class="thankyou_section py-5 bg-white">
+    <div class="container-xl py-5 mb-5 text-center">
+      <h1 class="display-4 mb-4">Thank You for Your Order!</h1>
+      <p class="lead mb-5">Your order has been placed successfully.</p>
+
+      <div class="card bg-light p-4 mx-auto" style="max-width: 600px;">
+        <h3 class="mb-4">Order Receipt</h3>
+        <div id="receipt-items" class="text-start"></div>
+        <hr class="my-4" />
+        <div class="d-flex justify-content-between fs-5 fw-bold mb-2">
+          <span>Subtotal</span>
+          <span id="receipt-subtotal">$0.00</span>
+        </div>
+        <div class="d-flex justify-content-between fs-5 fw-bold mb-2">
+          <span>Shipping</span>
+          <span id="receipt-shipping">Free</span>
+        </div>
+        <hr class="my-4" />
+        <div class="d-flex justify-content-between fs-4 fw-bold">
+          <span>Total</span>
+          <span id="receipt-total">$0.00</span>
+        </div>
+      </div>
+
+      <a href="/shop" class="btn btn-primary btn-lg mt-5">Continue Shopping</a>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const receiptItemsContainer = document.getElementById('receipt-items');
+      const receiptSubtotalSpan = document.getElementById('receipt-subtotal');
+      const receiptTotalSpan = document.getElementById('receipt-total');
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      if (!cart.length) {
+        receiptItemsContainer.innerHTML = '<p>No order details found.</p>';
+        receiptSubtotalSpan.textContent = '$0.00';
+        receiptTotalSpan.textContent = '$0.00';
+        return;
+      }
+
+      let subtotal = 0;
+
+      cart.forEach((item) => {
+        const itemPrice = parseFloat(
+          item.price?.replace('$', '') || item.price || 0
+        );
+        const itemQuantity = parseInt(item.quantity) || 1;
+        const itemTotal = itemPrice * itemQuantity;
+        subtotal += itemTotal;
+
+        const receiptItem = document.createElement('div');
+        receiptItem.classList.add('d-flex', 'justify-content-between', 'mb-2');
+
+        let planDisplay = '';
+        if (item.selectedPlan) {
+          if (item.selectedPlan.frequency === 'One-Time') {
+            planDisplay = ' (One-Time)';
+          } else {
+            planDisplay = ` (${item.selectedPlan.frequency} Subscription)`;
+          }
+        } else if (item.isSubscription) {
+          planDisplay = ' (Subscription)';
+        }
+
+        receiptItem.innerHTML = `
+          <span>${item.name}${planDisplay} (x${itemQuantity})</span>
+          <span>$${itemTotal.toFixed(2)}</span>
+        `;
+        receiptItemsContainer.appendChild(receiptItem);
+      });
+
+      receiptSubtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+      receiptTotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+
+      localStorage.removeItem('cart');
+      console.log('Cart cleared after order completion');
+
+      window.dispatchEvent(new Event('cartUpdated'));
+    });
+  </script>
+</Layout>

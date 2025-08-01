@@ -1,0 +1,235 @@
+---
+import CialixDetails from './CialixDetails.astro';
+import TestoRXDetails from './TestoRXDetails.astro';
+import ClimaxinDetails from './ClimaxinDetails.astro';
+import ComboDetails from './ComboDetails.astro';
+
+interface Props {
+  product: {
+    id: string;
+    name: string;
+    description: string;
+    totalPrice: number;
+    price: number;
+    image: string;
+    details: string;
+    features: string[];
+    badge?: string;
+    badgeColor?: string;
+    category?: string;
+    plans: {
+      billing_model_id: number;
+      discount_percentage: number;
+      frequency: string;
+      description: string;
+      price: number;
+      offer_id: number;
+    }[];
+  };
+}
+
+const { product } = Astro.props;
+---
+
+<section class="product_detail bg-white py-5">
+  <div class="container-xl py-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-md-6">
+            <img src={product.image} alt={product.name} class="img-fluid" />
+          </div>
+          <div class="col-md-6">
+            <h2 id="product-name" class="display-5 mb-4 mt-16">
+              {product.name}
+            </h2>
+            <p>{product.description}</p>
+
+            <!-- Price Display -->
+            <div class="mb-4">
+              <p id="product-price" class="h3 mb-2">${product.price}</p>
+              <div
+                id="selected-plan-price"
+                class="text-success h4 mb-2"
+                style="display: none;"
+              >
+                <span class="text-decoration-line-through text-muted">
+                  ${product.price}
+                </span>
+                <span class="ms-2" id="discounted-price"></span>
+                <span class="badge bg-success ms-2" id="discount-badge"></span>
+              </div>
+            </div>
+
+            <!-- Plans Selection -->
+            <div class="mb-4">
+              <label for="plan-select" class="form-label fw-bold"
+                >Select Plan</label
+              >
+              <select class="form-select" id="plan-select">
+                {
+                  product.plans.map((plan) => (
+                    <option
+                      value={plan.billing_model_id}
+                      data-price={plan.price}
+                      data-discount={plan.discount_percentage}
+                      data-frequency={plan.frequency}
+                      data-description={plan.description}
+                      data-offer_id={plan.offer_id}
+                    >
+                      {plan.frequency === 'One-Time'
+                        ? `One-Time Purchase - $${plan.price}`
+                        : `${plan.frequency} Subscription - $${plan.price} (Save ${plan.discount_percentage}%)`}
+                    </option>
+                  ))
+                }
+              </select>
+              <small class="text-muted" id="plan-description">
+                {product.plans[0]?.description || ''}
+              </small>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <div class="me-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <select class="form-select" id="quantity">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <button id="add-to-cart" class="btn btn-primary align-self-end"
+                >Add to Cart</button
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <h3 class="mb-4">Product Details</h3>
+            <p class="text-gray-600">{product.details}</p>
+          </div>
+        </div>
+
+        <!-- Product Features -->
+        {
+          product.features && product.features.length > 0 && (
+            <div class="row mt-5">
+              <div class="col-12">
+                <h3 class="mb-4">Key Features</h3>
+                <ul class="list-unstyled">
+                  {product.features.map((feature) => (
+                    <li class="mb-2">
+                      <i class="fas fa-check text-green-500 me-2" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product-Specific Bottom Sections -->
+{product.category === 'cialix' && <CialixDetails />}
+{product.category === 'testorx' && <TestoRXDetails />}
+{product.category === 'climaxin' && <ClimaxinDetails />}
+{product.category === 'combo' && <ComboDetails />}
+
+<script define:vars={{ productId: product.id, productData: product }}>
+  // Handle plan selection functionality
+  const planSelect = document.getElementById('plan-select');
+  const productPrice = document.getElementById('product-price');
+  const selectedPlanPrice = document.getElementById('selected-plan-price');
+  const discountedPrice = document.getElementById('discounted-price');
+  const discountBadge = document.getElementById('discount-badge');
+  const planDescription = document.getElementById('plan-description');
+
+  function updatePriceDisplay() {
+    const selectedOption = planSelect.options[planSelect.selectedIndex];
+    const selectedPrice = parseFloat(selectedOption.dataset.price);
+    const selectedDiscount = parseInt(selectedOption.dataset.discount);
+    const selectedFrequency = selectedOption.dataset.frequency;
+    const selectedDescription = selectedOption.dataset.description;
+
+    // Update plan description
+    planDescription.textContent = selectedDescription;
+
+    // Update price display
+    if (selectedFrequency === 'One-Time') {
+      productPrice.style.display = 'block';
+      selectedPlanPrice.style.display = 'none';
+      productPrice.textContent = `$${selectedPrice}`;
+    } else {
+      productPrice.style.display = 'none';
+      selectedPlanPrice.style.display = 'block';
+      discountedPrice.textContent = `$${selectedPrice}`;
+      discountBadge.textContent = `Save ${selectedDiscount}%`;
+    }
+  }
+
+  // Initialize price display
+  updatePriceDisplay();
+
+  // Add event listener for plan changes
+  planSelect.addEventListener('change', updatePriceDisplay);
+
+  document.getElementById('add-to-cart').addEventListener('click', () => {
+    const selectedOption = planSelect.options[planSelect.selectedIndex];
+    const selectedPlan = {
+      billing_model_id: parseInt(planSelect.value),
+      price: parseFloat(selectedOption.dataset.price),
+      discount_percentage: parseInt(selectedOption.dataset.discount),
+      frequency: selectedOption.dataset.frequency,
+      description: selectedOption.dataset.description,
+      offer_id: selectedOption.dataset.offer_id,
+    };
+
+    const product = {
+      id: productId,
+      name: document.getElementById('product-name').textContent,
+      price: `$${selectedPlan.price}`,
+      quantity: parseInt(document.getElementById('quantity').value),
+      image: document.querySelector('.img-fluid').src,
+      selectedPlan: selectedPlan,
+      isSubscription: selectedPlan.frequency !== 'One-Time',
+      offerId: selectedPlan.offer_id,
+    };
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if product already exists in cart (considering plan)
+    const existingProductIndex = cart.findIndex(
+      (item) =>
+        item.id === productId &&
+        item.selectedPlan.billing_model_id === selectedPlan.billing_model_id
+    );
+
+    if (existingProductIndex !== -1) {
+      // Update quantity if product already exists with same plan
+      cart[existingProductIndex].quantity += product.quantity;
+      console.log(
+        `Updated quantity for product ${productId} with plan ${selectedPlan.billing_model_id} to ${cart[existingProductIndex].quantity}`
+      );
+    } else {
+      // Add new product to cart
+      cart.push(product);
+      console.log(
+        `Added new product ${productId} with plan ${selectedPlan.billing_model_id} to cart`
+      );
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    console.log('Current cart:', cart);
+    window.dispatchEvent(new Event('cartUpdated'));
+    window.location.href = '/cart';
+  });
+</script>

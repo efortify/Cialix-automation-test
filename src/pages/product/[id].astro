@@ -1,0 +1,25 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductDetail from '../../components/ProductDetail.astro';
+import * as productList from '../../content/product-list.md';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const products = productList.frontmatter.products;
+  return products.map((product: any) => ({
+    params: { id: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+---
+
+<Layout title={`Cialix`}>
+  <Header />
+  <ProductDetail product={product} />
+  <Footer />
+</Layout>

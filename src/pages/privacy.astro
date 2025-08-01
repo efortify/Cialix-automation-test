@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+import * as privacyPolicy from '../content/privacy-policy.md';
+const { Content } = privacyPolicy;
+---
+
+<Layout title="Privacy Policy | Cialix" description="Privacy Policy for Cialix">
+  <Header />
+
+  <section class="bg-black text-white py-20 mt-16">
+    <div class="container-xl mx-auto px-4">
+      <div class="text-center max-w-4xl mx-auto">
+        <h1
+          class="text-5xl font-bold mb-6"
+          style="font-family: 'paralucent', sans-serif;"
+        >
+          {privacyPolicy.frontmatter.title}
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          EFFECTIVE DATE: {privacyPolicy.frontmatter.effective_date}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Policy Content -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-xl mx-auto px-4">
+      <div class="max-w-4xl mx-auto prose prose-lg">
+        <Content />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

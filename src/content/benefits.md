@@ -1,0 +1,21 @@
+---
+title: 'BENEFITS OF CIALIX'
+subtitle: '(Take your performance in the bedroom to "the next level") †'
+benefits:
+  - id: 'benefits-5-star-supplement'
+    title: '5 STAR ENHANCEMENT SUPPLEMENT'
+    image: '/assets/icons/badge-icon.png'
+    description: 'A world-renowned male enhancement supplement with more than one million bottles sold.'
+  - id: 'strength-stamina'
+    title: 'STRENGTH & STAMINA'
+    image: '/assets/icons/strength-icon.png'
+    description: 'Cialix may give you that boost in strength and stamina that you been looking for. †'
+  - id: 'earth-grown-ingredients'
+    title: 'EARTH GROWN INGREDIENTS'
+    image: '/assets/icons/feather-icon.png'
+    description: 'Formulated using carefully selected botanicals and amino acids.'
+  - id: 'increased-libido'
+    title: 'INCREASED LIBIDO'
+    image: '/assets/icons/flame-icon.png'
+    description: 'The premium ingredients in Cialix may increase a users libido. Making them feel "motivated" again.†'
+---

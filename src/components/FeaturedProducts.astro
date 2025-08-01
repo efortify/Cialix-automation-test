@@ -1,0 +1,20 @@
+---
+import * as featuredProductsContent from '../content/featured-products.md';
+---
+
+<section class="store_products bg-dark py-5">
+  <div class="container-xl py-5 mb-5">
+    <div class="row justify-content-center mb-5">
+      <div class="col text-center">
+        <h2 class="text-white display-5 mb-4">
+          {featuredProductsContent.frontmatter.title}
+        </h2>
+        <p>{featuredProductsContent.frontmatter.description}</p>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+      <!-- Product cards will be added here -->
+    </div>
+  </div>
+</section>

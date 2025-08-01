@@ -1,0 +1,89 @@
+---
+import * as testorxDetails from '../content/testorx-details.md';
+
+const {
+  title,
+  subtitle,
+  benefits,
+  ingredients_title,
+  key_ingredients,
+  how_it_works,
+  cta,
+} = testorxDetails.frontmatter;
+---
+
+<section class="bg-gray-50 py-16">
+  <div class="container mx-auto px-4">
+    <!-- TestoRX Benefits Section -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold mb-4">{title}</h2>
+      <p class="text-xl text-gray-600">{subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {
+        benefits.map((benefit: any) => (
+          <div class="text-center">
+            <div
+              class={`bg-${benefit.color}-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}
+            >
+              <img
+                src={`/assets/icons/${benefit.icon}`}
+                alt={benefit.title}
+                class="w-8 h-8"
+              />
+            </div>
+            <h3 class="text-xl font-bold mb-2">{benefit.title}</h3>
+            <p class="text-gray-600">{benefit.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- TestoRX Ingredients Section -->
+    <div class="bg-white rounded-lg p-8 mb-16">
+      <h3 class="text-3xl font-bold text-center mb-8">{ingredients_title}</h3>
+      <div>
+        <div>
+          <h4 class="text-xl font-semibold mb-4">
+            Testosterone Elevating Ingredients
+          </h4>
+          <ul class="space-y-3">
+            {
+              key_ingredients.map((ingredient: any) => (
+                <li class="flex items-start">
+                  <span class="text-yellow-500 mr-3">✓</span>
+                  <div>
+                    <strong>{ingredient.name}</strong> -{' '}
+                    {ingredient.description}
+                    {ingredient.evidences && (
+                      <ul class="pt-2 text-sm text-gray-600 ml-4">
+                        {ingredient.evidences.map((evidence: any) => (
+                          <li class="text-sm text-gray-600">
+                            <span class="text-gray-600">•</span> {evidence}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center">
+      <h3 class="text-3xl font-bold mb-4">{cta.title}</h3>
+      <p class="text-xl text-gray-600 mb-8">{cta.subtitle}</p>
+      <a
+        href="#add-to-cart"
+        class={`bg-${cta.button_color}-500 hover:bg-${cta.button_color}-600 text-white px-8 py-3 rounded-lg font-bold text-lg transition-colors`}
+      >
+        {cta.button_text}
+      </a>
+    </div>
+  </div>
+</section>
